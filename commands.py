@@ -7,7 +7,7 @@ from telebot import *
 from pupils_list import Status
 
 poll_closure_minutes = 1
-admin_to_send_to = deps.admins[0]
+admin_to_send_to = deps.admins['oleja']
 
 trusted = u'\u2705'
 not_trusted = u'\u274C'
@@ -19,7 +19,7 @@ def commands_register(bot):
         bot.send_message(message.chat.id, text.greetings_message)
 
     @bot.message_handler(commands=['get_chat_id'])
-    def start(message):
+    def get_chat_id(message):
         bot.send_message(message.chat.id, message.chat.id)
 
     def get_id(name):
@@ -67,7 +67,7 @@ def commands_register(bot):
             if pupils_list.pupils[pupil][2] == Status.NOT_TRUSTED:
                 response += pupils_list.pupils[pupil][0] + ": " + "NOT_TRUSTED" + "\n"
         if response == "": response = "No distrusteed!"
-        bot.send_message(admin_to_send_to, response)
+        return response
 
     @bot.message_handler(commands=['help'])
     def start(message):
@@ -75,7 +75,7 @@ def commands_register(bot):
 
     def check_rights(message):
         print(message.from_user.id)
-        if message.from_user.id in deps.admins:
+        if message.from_user.id in deps.admins.values():
             return True
         else:
             bot.reply_to(message, 'Недостаточно прав')
