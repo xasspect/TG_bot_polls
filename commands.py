@@ -1,7 +1,5 @@
 import deps
 import text, pupils_list
-from datetime import datetime, timedelta
-from collections import defaultdict
 from telebot import *
 
 from pupils_list import Status
